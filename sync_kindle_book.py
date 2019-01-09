@@ -7,14 +7,7 @@ from getpass import getpass
 from functools import partial
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
-
-
-if sys.version_info.major < 3:
-    INPUT = raw_input
-    from ConfigParser import ConfigParser as cparser
-else:
-    INPUT = input
-    from configparser import ConfigParser as cparser
+from ConfigParser import ConfigParser as cparser
 
 
 config = cparser()
@@ -50,6 +43,7 @@ def gen_message(file_path, from_addr, to_addr):
     msg['Subject'] = os.path.basename(file_path).split('.')[0]
     msg['From'] = from_addr
     msg['To'] = to_addr
+    msg["Accept-Charset"] = "utf-8"
     mi = file_mime(file_path)
     msg.attach(mi)
     return msg
@@ -59,7 +53,8 @@ def file_mime(file_path):
     ctype, _ = mimetypes.guess_type(file_path)
     maintype, subtype = ctype.split('/', 1)
     msg = MIMEBase(maintype, subtype)
-    msg.set_payload(open(file_path).read())
+    with open(file_path) as f:
+        msg.set_payload(f.read())
     msg.add_header('Content-Disposition', 'attachment', filename=os.path.basename(file_path))
     return msg
 
