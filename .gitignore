@@ -6,3 +6,6 @@
 *.pdf
 *.zip
 *.epub
+
+# python-version
+.python-version
