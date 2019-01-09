@@ -1,2 +1,8 @@
 *.ini
 *.pyc
+
+# book
+*.mobi
+*.pdf
+*.zip
+*.epub
