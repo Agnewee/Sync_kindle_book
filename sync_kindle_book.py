@@ -47,7 +47,7 @@ def send_mail(smtp_addr, smtp_port, from_addr, password, to_addr, message, set_d
 
 def gen_message(file_path, from_addr, to_addr):
     msg = MIMEMultipart()
-    msg['Subject'] = os.path.basename(file_path)
+    msg['Subject'] = os.path.basename(file_path).split('.')[0]
     msg['From'] = from_addr
     msg['To'] = to_addr
     mi = file_mime(file_path)
