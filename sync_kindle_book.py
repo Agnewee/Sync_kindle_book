@@ -54,7 +54,7 @@ def file_mime(file_path):
     maintype, subtype = ctype.split('/', 1)
     msg = MIMEBase(maintype, subtype)
     with open(file_path) as f:
-        msg.set_payload(f.read())
+        msg.set_payload(f.read(), charset='utf-8')
     msg.add_header('Content-Disposition', 'attachment', filename=os.path.basename(file_path))
     return msg
 
